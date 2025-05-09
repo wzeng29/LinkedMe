@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedMe – Promote Yourself</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script type="module" src="main.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  
+    :root {
+      --bg: #4b094b;
+      --primary: #8b2591;
+      --accent: #8b2591;
+      --hover: #a75cb1;
+      --text: #ffffff;
+    }
+    
+    body {
+      background-color: var(--bg);
+      font-family: 'Poppins', sans-serif;
+      color: var(--text);
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background: linear-gradient(-45deg, #580c6b, #5b0e88, #ab88c2, #4c0d69);
+      background-size: 400% 400%;
+      animation: gradientFlow 20s ease infinite;
+    }
+  
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    .navbar {
+      background-color: var(--primary);
+      box-shadow: 0 2px 10px rgb(255, 252, 252);
+    }
+  
+    .navbar-brand {
+      color: white;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+  
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(20, 1fr);
+      gap: 4px;
+      padding: 20px;
+    }
+  
+    .grid-item {
+      width: 40px;
+      height: 40px;
+      background-color: rgb(255, 255, 255);
+      border: 2px solid transparent;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.2s ease;
+      box-shadow: 0 2px 6px rgba(245, 244, 244, 0.07);
+    }
+  
+    .grid-item:hover {
+      background-color: var(--hover);
+      transform: scale(1.08);
+    }
+  
+    .grid-item.taken {
+      background-size: cover;
+      background-position: center;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 0 2px rgb(110, 74, 168), 0 0 0 4px var(--accent);
+    }
+
+    .grid-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 3px solid var(--accent);
+    }
+  
+    .modal-content {
+      border-radius: 16px;
+      border: 2px solid var(--primary);
+      padding: 8px;
+    }
+  
+    .modal-title {
+      color: var(--accent);
+    }
+  
+    .form-control {
+      border-radius: 10px;
+      border: 1px solid #450569;
+      font-size: 0.95rem;
+    }
+  
+    .btn-success {
+      background-color: var(--primary);
+      border: none;
+      font-weight: 1000;
+      transition: background-color 0.5s ease;
+    }
+  
+    .btn-success:hover {
+      background-color: #450569;
+    }
+  
+    footer {
+      font-size: 0.8rem;
+      color: #fdf9f9;
+    }
+    .navbar-brand {
+      color: #4f1570 !important;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+  </style>
+  
+</head>
+<body>
+  <nav class="navbar navbar-light bg-white shadow-sm mb-4">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">LinkedMe</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2 class="mb-4 text-center text-white">Be seen. Be found. Be connected.</h2>
+    <p class="text-center text-white">Click an empty block to promote yourself, or click a filled one to view details.</p>
+
+    <div class="grid-container" id="gridContainer">
+      <!-- 2500 blocks will be dynamically injected here by main.js -->
+    </div>
+  </div>
+
+  <div id="modalsContainer">
+    <!-- Modals for each user will be injected here by main.js -->
+  </div>
+
+  <!-- Submission Modal -->
+  <div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="userForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="submitModalLabel">Claim a Grid Spot</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="gridIndex">
+            <input type="text" id="name" class="form-control mb-2" placeholder="Name" required>
+            <input type="number" id="age" class="form-control mb-2" placeholder="Age" required>
+            <input type="text" id="gender" class="form-control mb-2" placeholder="Gender" required>
+            <input type="text" id="country" class="form-control mb-2" placeholder="Country" required>
+            <input type="text" id="city" class="form-control mb-2" placeholder="City" required>
+            <input type="text" id="language" class="form-control mb-2" placeholder="Language" required>
+            <input type="text" id="hobbies" class="form-control mb-2" placeholder="Hobbies" required>
+            <input type="text" id="contact" class="form-control mb-2" placeholder="Contact" required>
+            <input type="file" id="avatar" class="form-control mb-2" accept=".jpg,.jpeg,.png" required>
+            <input type="text" id="note" class="form-control mb-2" placeholder="Note" required>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" id="submitBtn" class="btn btn-success">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center mt-5 mb-3 text-grey">
+    &copy; 2025 LinkedMe. All rights reserved.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
